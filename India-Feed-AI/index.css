@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap');
+
+.heading {
+    font-family: 'Oswald', sans-serif;
+    font-size: 70px;
+    text-align: center;
+    color: #d10000; 
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    font-weight: bold;
+    margin-top: 50px;
+}
+.navbar-custom {
+    border-bottom: 2px solid #ddd;
+}
+.nav-category {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1rem;
+}
+.search-btn {
+    border: none;
+    background: none;
+    font-size: 1rem;
+    color: #333;
+    display: flex;
+    align-items: center;
+}
+.search-btn i {
+    font-size: 1.2rem;
+    margin-right: 5px;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 100vh; 
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.left-section {
+    width: 70%;
+    padding: 20px;
+    border-right: 2px solid #ddd; 
+    display: flex;
+    flex-direction: column;
+}
+
+.right-section {
+    width: 30%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.left-section, .right-section {
+    min-height: 100vh;
+}
+
+.article-list {
+    list-style: none;
+    padding: 0;
+}
+
+.article-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.article-list li:hover {
+    background-color: #f5f5f5;
+}
+
+.footer {
+    text-align: center;
+    padding: 10px;
+    background: #f8f9fa;
+    width: 100%;
+    position: relative;
+    bottom: 0;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    .left-section, .right-section {
+        width: 100%;
+        border-right: none;
+        border-bottom: 2px solid #ddd;
+        min-height: auto;
+    }
+}
