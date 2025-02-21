@@ -13,5 +13,3 @@ class Summarizer(BaseModel):
 
     def summarize(self):
         return super()._respond(self.__system_prompt)     
-
-print(Summarizer().summarize())
