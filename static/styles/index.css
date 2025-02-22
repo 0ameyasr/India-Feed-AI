@@ -100,3 +100,30 @@ html, body {
         min-height: auto;
     }
 }
+
+.article-content {
+    line-height: 1.6;
+    margin-top: 1.5rem;
+  }
+  
+  .article-content p {
+    margin-bottom: 1rem;
+  }
+  
+  .article-content strong {
+    font-weight: bold;
+  }
+  
+  .article-content em {
+    font-style: italic;
+  }
+  
+  .article-content ul, .article-content ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .article-item:hover {
+    background-color: #f8f9fa;
+    cursor: pointer;
+  }
