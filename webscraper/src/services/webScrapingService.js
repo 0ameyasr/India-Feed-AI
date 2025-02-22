@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 const News = require('../models/newsModel');
+
 class WebScrapingService {
     constructor() {
         this.News = News;
@@ -12,43 +13,57 @@ class WebScrapingService {
         await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36');
         await page.setExtraHTTPHeaders({ 'Accept-Language': 'en-US,en;q=0.9' });
 
-        const searchUrl = `https://www.indiatoday.in/search/${encodeURIComponent(topic)}`;
+        const formattedTopic = topic.toLowerCase().replace(/\s+/g, "-"); 
+        const searchUrl = `https://www.indiatoday.in/search/${formattedTopic}&ctype=story`;
         console.log('Fetching:', searchUrl);
+        
         await page.goto(searchUrl, { waitUntil: 'networkidle2' });
-
         await page.waitForSelector('#more_content_container');
 
-        // Extract article links (TOP 3)
         const articleLinks = await page.evaluate(() => {
             const container = document.querySelector('#more_content_container');
             return container
-                ? Array.from(container.querySelectorAll('a.grid_card_link')).map(a => a.href).slice(0, 3)
+                ? Array.from(container.querySelectorAll('a.grid_card_link'))
+                    .map(a => a.href)
+                    .filter(link => 
+                        link.startsWith('https://www.indiatoday.in') && 
+                        !link.includes('/visualstories/') &&            
+                        !link.includes('/magazine/')                    
+                    )                    
+                    .slice(0, 5)
                 : [];
         });
-
+        
         await browser.close();
 
-        // Call the internal function to scrape article details
         const articles = await this.scrapeTopArticles(articleLinks);
-        return articles;
+        
+        const validArticles = articles.filter(article => {
+            return article.corpus && article.corpus.split('.').filter(s => s.trim().length > 0).length > 1;
+        });
+
+        return validArticles.slice(0,2);
     }
 
     async scrapeArticleDetails(page, articleUrl) {
         await page.goto(articleUrl, { waitUntil: 'networkidle2' });
 
-        const articleData = await page.evaluate(() => {
+        const articleData = await page.evaluate((url) => {
             const titleElement = document.querySelector('h1[class^="Story_strytitle"]');
             const kickerElement = document.querySelector('div.story-kicker h2');
             const imageElement = document.querySelector('img[src^="https://akm-img-a-in.tosshub.com/indiatoday/images/story/"]');
             const paragraphElements = document.querySelectorAll('p');
+            const spanUpdate = document.querySelector('span.strydate');
 
             return {
-                title: titleElement ? titleElement.innerText.trim() : 'No title',
-                storyKicker: kickerElement ? kickerElement.innerText.trim() : 'No story kicker',
-                image: imageElement ? imageElement.src : 'No image',
-                corpus: Array.from(paragraphElements).map(p => p.innerText.trim()).join(' ')
+                url: url, 
+                title: titleElement ? titleElement.innerText.trim() : null,
+                storyKicker: kickerElement ? kickerElement.innerText.trim() : null,
+                image: imageElement ? imageElement.src : null,
+                corpus: (kickerElement ? kickerElement.innerText.trim() + " " : "") + Array.from(paragraphElements).map(p => p.innerText.trim()).join(' '),
+                dated: spanUpdate ? spanUpdate.innerText.trim() : null,
             };
-        });
+        }, articleUrl);
 
         return articleData;
     }
@@ -72,7 +87,6 @@ class WebScrapingService {
         }
 
         await browser.close();
-        console.log("Final Articles Array:", articles); // Debugging log
         return articles;
     }
 }

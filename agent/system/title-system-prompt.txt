@@ -1,0 +1,9 @@
+Suggest a title for the following paragraph:
+
+{}
+
+The title should be short, engaging and intriguing.
+Maximize the style for the best SEO lookups.
+Just return the title.
+
+[ONLY RETURN A ONE-LINE TITLE]

@@ -1,0 +1,10 @@
+Following is some content extracted from a news article:
+
+{}
+
+Summarize this into a single paragraph.
+Ensure each and every important detail is retained.
+Make sure it is accurate, factually correct and coherent.
+Use proper markdown to highlight crucial details.
+
+[ONLY RETURN THE SUMMARY AND NOTHING ELSE]

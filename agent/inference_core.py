@@ -10,8 +10,7 @@ SERVER_CWD = os.path.join(os.getcwd(),os.path.dirname(__file__))
 class BaseModel:
     def __init__(self) -> None:
         try:
-            self.__api_key = dotenv.get_key(f"{SERVER_CWD}/key.env",
-                                        key_to_get="GOOGLE_GENAI_API_KEY") or os.getenv("GOOGLE_GENAI_API_KEY")
+            self.__api_key = os.getenv("GOOGLE_GENAI_API_KEY")
         except Exception as error:
             print(f"An error occured while instantiating from BaseModel: {error}")
             
