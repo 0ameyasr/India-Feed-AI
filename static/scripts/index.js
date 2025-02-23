@@ -7,14 +7,14 @@ function showTopicArticles(topic) {
     topicArticles.forEach(article => {
         const li = document.createElement('li');
         li.className = 'list-group-item article-item';
-        li.onclick = () => loadArticle(article.title, article.content, article.date, article.image_url);
+        li.onclick = () => loadArticle(article.title, article.content, article.date, article.image_url, article.article_url);
         li.innerHTML = article.title;
         articlesList.appendChild(li);
     });
 
     if (topicArticles.length > 0) {
         const firstArticle = topicArticles[0];
-        loadArticle(firstArticle.title, firstArticle.content, firstArticle.date, firstArticle.image_url);
+        loadArticle(firstArticle.title, firstArticle.content, firstArticle.date, firstArticle.image_url, firstArticle.article_url);
     } else {
         loadArticle(
             'No Articles Available',
@@ -24,13 +24,14 @@ function showTopicArticles(topic) {
     }
 }
 
-function loadArticle(title, content, date, image_url) {
+function loadArticle(title, content, date, image_url, article_url) {
     const articleContent = document.getElementById('article-content');
     articleContent.innerHTML = `
       <h2>${title || 'No Title Available'}</h2>
       ${date ? `<p><i>${date}</i></p>` : ''}
       <img src=${image_url} alt="Image" width="600" height="300"/>
       <div class="article-content">${content || 'No content available'}</div>
+      <a href=${article_url} target="_blank">Source</a>
     `;
 
     const articles = document.querySelectorAll('.article-item');
@@ -88,3 +89,17 @@ if (navigator.geolocation) {
 } else {
     fetchWeather(28.6139, 77.209);
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    const articleItems = document.querySelectorAll(".article-list li");
+
+    articleItems.forEach((item) => {
+        item.addEventListener("click", function () {
+            document.querySelectorAll(".article-list li").forEach((el) => {
+                el.classList.remove("selected");
+            });
+
+            this.classList.add("selected");
+        });
+    });
+});
