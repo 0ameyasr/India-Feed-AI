@@ -11,7 +11,7 @@ articles = db["articles"]
 
 @app.route("/",methods=["GET"])
 def home():
-    topics = ["Finance", "Politics", "Defence", "Entertainment", "Sports", "Global", "Technology"]
+    topics = ["Finance", "Politics", "Defence", "Entertainment", "Sports", "Global", "Technology", "Crime"]
 
     articles_by_topic = {}
     for topic in topics:

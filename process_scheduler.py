@@ -23,7 +23,7 @@ def get_scraped_articles(topic:str):
     if response.status_code == 200:
         return list(response.json())
     else:
-        print(f"There was an error fetching the scraped articles.")
+        print(f"There was an error fetching the scraped articles for {topic}")
         return None
 
 def get_summarized_articles(articles:list,topic:str) -> list[dict]:
@@ -64,7 +64,7 @@ def populate_articles(topic:str):
             else:
                 to_summarize.append(article_object)
 
-        print(f"Scraped related articles for the topic, beginning summarization job")
+        print(f"Scraped related articles for the {topic}, beginning summarization job")
         if to_summarize:
             summarized_article_objects = get_summarized_articles(to_summarize,topic)
             current_time = datetime.now(IST_TMZ)
@@ -75,15 +75,15 @@ def populate_articles(topic:str):
                 print(f'Submitted article summary context from {article_object["url"]}')
                 count += 1
 
-            print(f"Submitted {count} articles at IST {current_time}")
+            print(f"Submitted {count} articles @ IST {current_time} for topic {topic}")
         else:
-            print(f"Did not push anything, since there was nothing to summarize.")
+            print(f"Did not push anything, since there was nothing to summarize on topic {topic}")
 
     except Exception as error:
         print(f"Error: {error}")
 
 def populate_across_all_topics():
-    print(f"Populating articles across all topics")
+    print(f"Populating articles across all topics @ IST {datetime.now(IST_TMZ)}")
     topics = [
         "finance",
         "politics",
@@ -92,6 +92,7 @@ def populate_across_all_topics():
         "sports",
         "global",
         "technology",
+        "crime",
     ]
     for topic in topics:
         print(f"Beginning population for '{topic}'")
@@ -104,11 +105,11 @@ if __name__ == "__main__":
     scheduler = BlockingScheduler()
     scheduler.add_job(func=populate_across_all_topics,
                       trigger='cron',
-                      hour='3,6,10,14,16,20,22,0',
+                      hour='3,6,10,12,14,16,20,22,0',
                       minute='0',
                       name="Populating articles")
 
-    print(f"Starting process_scheduler at IST {datetime.now(IST_TMZ)}")
+    print(f"Started process_scheduler @ IST {datetime.now(IST_TMZ)}")
     try:
         scheduler.start()
     except KeyboardInterrupt:
