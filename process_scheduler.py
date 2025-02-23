@@ -107,7 +107,7 @@ if __name__ == "__main__":
     scheduler.add_job(func=populate_across_all_topics,
                       trigger='cron',
                       hour='3,6,10,12,14,16,18,20,22,0',
-                      minute='1',
+                      minute='0',
                       name="Populating articles")
 
     print(f"Started process_scheduler @ IST {datetime.now(IST_TMZ)}")

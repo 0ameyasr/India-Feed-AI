@@ -35,7 +35,7 @@ def home():
 
     # trending_videos = []
     # try:
-    #     response = requests.get("http://localhost:5000/api/news/trending-videos")
+    #     response = requests.get("http://localhost:7070/api/news/trending-videos")
     #     if response.status_code == 200:
     #         trending_videos = response.json()
     # except requests.exceptions.RequestException as e:

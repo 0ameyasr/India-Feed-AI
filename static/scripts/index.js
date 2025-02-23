@@ -190,6 +190,7 @@ $(document).ready(function () {
         searchButton.prop("disabled", true).text("Searching...");
         $("#modalContent").html('<div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>');
         $("#newsModal").modal("show");
+        $("#newsModalLabel").html(`Search Results - ${topic}`);
 
         fetch(`http://localhost:7070/api/news/fetch-news`, {
             method: "POST",
@@ -201,7 +202,9 @@ $(document).ready(function () {
             signal: searchController.signal
         })
         .then(response => {
-            if (!response.ok) throw new Error("Server error");
+            if (!response.ok) {
+                console.log(response);
+            }
             return response.json();
         })
         .then(data => {
@@ -274,7 +277,7 @@ $(document).ready(function () {
             searchController.abort();
             searchController = null;
             
-            fetch(`http://localhost:5000/api/news/cancel`, {
+            fetch(`http://localhost:7070/api/news/cancel`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ requestId: currentRequestId })
