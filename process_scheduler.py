@@ -17,11 +17,12 @@ SUMMARIZER = Summarizer()
 def get_scraped_articles(topic:str):
     payload = {
         "topic": topic,
+        "requestId": 123456789,
     }
     response = requests.post(WEBSCRAPER_API_URL,json=payload)
 
     if response.status_code == 200:
-        return list(response.json())
+        return list(response.json()['articles'])
     else:
         print(f"There was an error fetching the scraped articles for {topic}")
         return None
@@ -105,7 +106,7 @@ if __name__ == "__main__":
     scheduler = BlockingScheduler()
     scheduler.add_job(func=populate_across_all_topics,
                       trigger='cron',
-                      hour='3,6,10,12,14,16,20,22,0',
+                      hour='3,6,10,12,14,16,18,20,22,0',
                       minute='0',
                       name="Populating articles")
 
