@@ -83,7 +83,20 @@ def populate_articles(topic:str):
     except Exception as error:
         print(f"Error: {error}")
 
+def fetch_trending_videos():
+    url = "http://localhost:7070/api/news/trending-videos"
+    videos = requests.get(url).json()
+    for video in videos:
+        exists = DB["trending_videos"].find_one({"url":video["url"]})
+        if exists:
+            print(f"Refusing to add video {video['url']} as it already exists")
+        else: 
+            DB["trending_videos"].insert_one(video)
+            print(f"Added video {video['url']} to the collection")
+
 def populate_across_all_topics():
+    print(f"Fetching Trending Videos..")
+    fetch_trending_videos()
     print(f"Populating articles across all topics @ IST {datetime.now(IST_TMZ)}")
     topics = [
         "finance",
@@ -107,7 +120,7 @@ if __name__ == "__main__":
     scheduler.add_job(func=populate_across_all_topics,
                       trigger='cron',
                       hour='3,6,10,12,14,16,18,20,22,0',
-                      minute='0',
+                      minute='9',
                       name="Populating articles")
 
     print(f"Started process_scheduler @ IST {datetime.now(IST_TMZ)}")

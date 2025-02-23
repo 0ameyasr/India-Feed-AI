@@ -13,6 +13,7 @@ app = Flask(__name__)
 mongo = MongoClient(os.getenv("MONGO_URI"))
 db = mongo["IndiaFeed"]
 articles = db["articles"]
+videos = db["trending_videos"]
 SUMMARIZER = Summarizer()
 IST_TMZ = pytz.timezone("Asia/Kolkata")
 
@@ -33,18 +34,12 @@ def home():
         for topic in topics
     }
 
-    # trending_videos = []
-    # try:
-    #     response = requests.get("http://localhost:7070/api/news/trending-videos")
-    #     if response.status_code == 200:
-    #         trending_videos = response.json()
-    # except requests.exceptions.RequestException as e:
-    #     print(f"Error fetching trending videos: {e}")
-
+    trending_videos = list(videos.find({}))[-3:]
     return render_template(
         "index.html",
         topics=topics,
         articles_by_topic=articles_by_topic,
+        trending_videos = trending_videos,
     )
 
 @app.route("/fetch-news", methods=["POST"])

@@ -54,6 +54,15 @@ class NewsController {
         
         res.status(200).json({ message: 'Request cancelled' });
     }
+
+    async fetchTrendingVideos(req, res) {
+        try {
+            const trendingVideos = await this.webScrapingService.scrapeTrendingVideos();
+            return res.status(200).json(trendingVideos);
+        } catch (error) {
+            return res.status(500).json({ error: error.message });
+        }
+    }
 }
 
 module.exports = NewsController;

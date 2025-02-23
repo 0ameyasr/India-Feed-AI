@@ -136,6 +136,43 @@ class WebScrapingService {
             return null;
         }
     }
+
+    async scrapeTrendingVideos() {
+        const browser = await puppeteer.launch({ headless: true });
+        const page = await browser.newPage();
+    
+        await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36');
+        await page.setExtraHTTPHeaders({ 'Accept-Language': 'en-US,en;q=0.9' });
+    
+        const trendingVideosUrl = 'https://www.indiatoday.in';
+        console.log('Fetching trending videos:', trendingVideosUrl);
+    
+        await page.goto(trendingVideosUrl, { waitUntil: 'networkidle2' });
+        await page.waitForSelector('.swiper-wrapper'); // Ensure swiper-wrapper loads
+    
+        const videos = await page.evaluate(() => {
+            return Array.from(document.querySelectorAll('.swiper-slide'))
+                .map(slide => {
+                    const titleElement = slide.querySelector('.card__slug');
+                    const linkElement = slide.querySelector('.card__desc h3 a');
+                    const url = linkElement ? linkElement.href : null;
+                    const thumbnailElement = slide.querySelector('.thumb.playIconThumbContainer img');
+                    
+                    if (url && url.includes('podcasts.indiatoday.in')) return null; // Filter out podcast URLs
+    
+                    return {
+                        title: titleElement ? titleElement.innerText.trim() : null,
+                        url: url,
+                        desc: linkElement ? linkElement.innerText.trim() : null,
+                        thumbnail: thumbnailElement ? thumbnailElement.src : null
+                    };
+                })
+                .filter(video => video && video.title && video.url); // Remove null entries
+        });
+    
+        await browser.close();
+        return videos;
+    }
 }
 
 module.exports = WebScrapingService;
