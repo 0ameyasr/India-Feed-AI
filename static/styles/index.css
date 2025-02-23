@@ -194,6 +194,129 @@ html, body {
     bottom: 0;
 }
 
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+body {
+    line-height: 1.5;
+    font-family: 'Poppins', sans-serif;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.custom-container {
+    max-width: 1170px;
+    margin: auto;
+}
+.custom-row {
+    display: flex;
+    flex-wrap: wrap;
+}
+ul {
+    list-style: none;
+}
+.custom-footer {
+    background-color: #24262b;
+    padding: 50px 0 20px 0; /* Reduced bottom padding */
+}
+
+.custom-footer-col {
+    width: 25%;
+    padding: 0 15px;
+}
+.custom-footer-col h4 {
+    font-size: 18px;
+    color: #ffffff;
+    text-transform: capitalize;
+    margin-bottom: 35px;
+    font-weight: 500;
+    position: relative;
+}
+.custom-footer-col h4::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    background-color: #e91e63;
+    height: 2px;
+    box-sizing: border-box;
+    width: 50px;
+}
+.custom-footer-col ul li:not(:last-child) {
+    margin-bottom: 10px;
+}
+.custom-footer-col ul li a {
+    font-size: 16px;
+    text-transform: capitalize;
+    color: #bbbbbb;
+    text-decoration: none;
+    font-weight: 300;
+    display: block;
+    transition: all 0.3s ease;
+}
+.custom-footer-col ul li a:hover {
+    color: #ffffff;
+    padding-left: 8px;
+}
+.custom-social-links a {
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    background-color: rgba(255, 255, 255, 0.2);
+    margin: 0 10px 10px 0;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    color: #ffffff;
+    transition: all 0.5s ease;
+}
+.custom-social-links a:hover {
+    color: #24262b;
+    background-color: #ffffff;
+}
+
+.tagline {
+    font-size: 18px;
+    font-weight: 400;
+    color: #444;
+    text-align: center;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+/* Adjust tagline color in dark mode (footer) */
+.custom-footer .tagline {
+    color: #bbbbbb;
+    text-align: left;
+    font-size: 16px;
+}
+
+/* Responsive Fixes */
+@media (max-width: 767px) {
+    .custom-footer-col {
+        width: 50%;
+        margin-bottom: 30px;
+    }
+}
+@media (max-width: 574px) {
+    .custom-footer-col {
+        width: 100%;
+    }
+}
+
+/* Copyright Section */
+.copyright {
+    text-align: center;
+    font-size: 16px;
+    color: #bbbbbb;
+    margin-top: 5px; /* Further reduced margin */
+    padding-top: 15px; /* Further reduced padding */
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    line-height: 1.2; /* Reduce line height for compact text */
+}
+
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
