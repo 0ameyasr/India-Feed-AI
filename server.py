@@ -14,14 +14,18 @@ articles = db["articles"]
 def home():
     topics = ["Finance", "Politics", "Defence", "Entertainment", "Sports", "Global", "Technology", "Crime"]
 
-    articles_by_topic = {}
-    for topic in topics:
-        topic_articles = list(articles.find({"topic": topic}))
-        for article in topic_articles:
-            if 'article' in article:
-                article['title'] =  markdown2.markdown(article["title"])
-                article['article'] = markdown2.markdown(article['article'])
-        articles_by_topic[topic] = topic_articles
+    articles_by_topic = {
+        topic: [
+            {
+                **article,
+                "title": markdown2.markdown(article["title"]),
+                "article": markdown2.markdown(article["article"]),
+            }
+            for article in reversed(list(articles.find({"topic": topic})))
+            if "article" in article
+        ]
+        for topic in topics
+    }
 
     # trending_videos = []
     # try:

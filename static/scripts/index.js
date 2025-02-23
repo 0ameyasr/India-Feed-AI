@@ -1,27 +1,106 @@
+document.addEventListener('DOMContentLoaded', () => {
+    showTopicArticles('Finance');
+});
+
+let currentPage = 0;
+const articlesPerPage = 5;
+
 function showTopicArticles(topic) {
+    if (window.currentTopic !== topic) {
+        currentPage = 0;
+    }
+    window.currentTopic = topic;
+
     const articlesList = document.getElementById('topic-articles');
     articlesList.innerHTML = '';
 
     const topicArticles = articlesData[topic] || [];
+    const totalPages = Math.ceil(topicArticles.length / articlesPerPage);
 
-    topicArticles.forEach(article => {
+    const start = currentPage * articlesPerPage;
+    const end = start + articlesPerPage;
+    const displayedArticles = topicArticles.slice(start, end);
+
+    displayedArticles.forEach(article => {
         const li = document.createElement('li');
         li.className = 'list-group-item article-item';
-        li.onclick = () => loadArticle(article.title, article.content, article.date, article.image_url, article.article_url);
+
+        const dateSpan = document.createElement('span');
+        dateSpan.className = 'article-date';
+        dateSpan.textContent = `${article.date}`;
+        dateSpan.style.fontSize = '0.85em';
+        dateSpan.style.color = 'gray';
+        dateSpan.style.marginLeft = '8px';
+
         li.innerHTML = article.title;
+        li.appendChild(dateSpan);
+
+        li.onclick = function () {
+            loadArticle(article.title, article.content, article.date, article.image_url, article.article_url);
+
+            document.querySelectorAll('.article-item').forEach(el => {
+                el.classList.remove('selected');
+            });
+
+            this.classList.add('selected');
+        };
+
         articlesList.appendChild(li);
     });
 
-    if (topicArticles.length > 0) {
-        const firstArticle = topicArticles[0];
+    addPaginationControls(topic, totalPages);
+    
+    if (displayedArticles.length > 0) {
+        const firstArticle = displayedArticles[0];
         loadArticle(firstArticle.title, firstArticle.content, firstArticle.date, firstArticle.image_url, firstArticle.article_url);
+        document.querySelector('.article-item').classList.add('selected');
     } else {
-        loadArticle(
-            'No Articles Available',
-            'There are currently no articles in this topic.',
-            ''
-        );
+        loadArticle('No Articles Available', 'There are currently no articles in this topic.', '');
     }
+}
+
+function addPaginationControls(topic, totalPages) {
+    const paginationContainer = document.getElementById('pagination-controls');
+    if (!paginationContainer) {
+        console.error("Pagination container not found!");
+        return;
+    }
+
+    paginationContainer.innerHTML = '';
+
+    const totalArticles = articlesData[topic]?.length || 0;
+    const start = currentPage * articlesPerPage + 1;
+    const end = Math.min((currentPage + 1) * articlesPerPage, totalArticles);
+
+    const countDisplay = document.createElement('span');
+    countDisplay.textContent = `Showing ${start}-${end} of ${totalArticles} articles`;
+    countDisplay.className = 'me-3 text-muted';
+
+    const prevButton = document.createElement('button');
+    prevButton.textContent = 'Previous';
+    prevButton.className = 'btn btn-sm btn-secondary me-2';
+    prevButton.disabled = (currentPage === 0);
+    prevButton.onclick = function () {
+        if (currentPage > 0) {
+            currentPage--;
+            showTopicArticles(topic);
+        }
+    };
+
+    const nextButton = document.createElement('button');
+    nextButton.textContent = 'Next';
+    nextButton.className = 'btn btn-sm btn-secondary';
+    nextButton.disabled = (currentPage >= totalPages - 1);
+    nextButton.onclick = function () {
+        if (currentPage < totalPages - 1) {
+            currentPage++;
+            showTopicArticles(topic);
+        }
+    };
+
+    paginationContainer.appendChild(countDisplay);
+    paginationContainer.appendChild(prevButton);
+    paginationContainer.appendChild(nextButton);
 }
 
 function loadArticle(title, content, date, image_url, article_url) {
@@ -34,19 +113,14 @@ function loadArticle(title, content, date, image_url, article_url) {
       <a href=${article_url} target="_blank">Source</a>
     `;
 
-    const articles = document.querySelectorAll('.article-item');
-    articles.forEach(article => {
+    document.querySelectorAll('.article-item').forEach(article => {
         if (article.textContent === title) {
-            article.classList.add('active');
+            article.classList.add('selected');
         } else {
-            article.classList.remove('active');
+            article.classList.remove('selected');
         }
     });
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    showTopicArticles('Finance');
-});
 
 function fetchWeather(lat, lon) {
     const apiKey = "ed81be9a5581a99556e37f20ab4a77f4";
@@ -89,17 +163,3 @@ if (navigator.geolocation) {
 } else {
     fetchWeather(28.6139, 77.209);
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-    const articleItems = document.querySelectorAll(".article-list li");
-
-    articleItems.forEach((item) => {
-        item.addEventListener("click", function () {
-            document.querySelectorAll(".article-list li").forEach((el) => {
-                el.classList.remove("selected");
-            });
-
-            this.classList.add("selected");
-        });
-    });
-});

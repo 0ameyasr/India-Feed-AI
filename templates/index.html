@@ -41,50 +41,6 @@
       <h1 class="heading text-center m-0">The Bharat Bulletin</h1>
     </header>
 
-    <script>
-      function fetchWeather(lat, lon) {
-        const apiKey = "ed81be9a5581a99556e37f20ab4a77f4";
-        fetch(
-          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`
-        )
-          .then((response) => response.json())
-          .then((data) => {
-            let temp = `${Math.round(data.main.temp)}°C`;
-            let location = data.name;
-            updateDateWeather(location, temp);
-          })
-          .catch((error) => {
-            console.error("Weather fetch error:", error);
-            updateDateWeather("Delhi", "N/A");
-          });
-      }
-
-      function updateDateWeather(location, temp) {
-        let date = new Date().toLocaleDateString("en-IN", {
-          weekday: "long",
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        });
-        document.getElementById(
-          "date-weather"
-        ).innerText = `${date} | ${location}, ${temp}`;
-      }
-
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) =>
-            fetchWeather(position.coords.latitude, position.coords.longitude),
-          (error) => {
-            console.error("Geolocation error:", error);
-            fetchWeather(28.6139, 77.209);
-          }
-        );
-      } else {
-        fetchWeather(28.6139, 77.209);
-      }
-    </script>
-
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-custom">
       <div class="container-fluid">
@@ -152,6 +108,7 @@
         <div class="col-md-4 article-right">
           <h4>Related Articles</h4>
           <ul class="list-group article-list" id="topic-articles"></ul>
+          <div id="pagination-controls" class="mt-3 d-flex justify-content-center"></div>
         </div>
       </div>
     </div>
@@ -215,10 +172,7 @@
     />
 
     <!-- Font Awesome for Social Media Icons -->
-    <script
-      src="https://kit.fontawesome.com/a076d05399.js"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -243,7 +197,7 @@
               {
                 title: {{ article.title|tojson|safe }},
                 content: {{ article.article|tojson|safe }},
-                date: {{ article.date|tojson|safe }},
+                date: {{ article.added|tojson|safe }},
                 image_url: {{ article.image|default('', true)|tojson|safe }},
                 article_url: {{ article.url|default('',true)|tojson|safe}}
               }{% if not loop.last %},{% endif %}

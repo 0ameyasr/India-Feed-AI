@@ -12,7 +12,12 @@
     margin-top: 40px;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: 'Merriweather', serif;
     font-weight: 700;
 }
@@ -20,7 +25,7 @@ h1, h2, h3, h4, h5, h6 {
 body {
     font-family: 'Inter', sans-serif;
     font-weight: 400;
-    line-height: 1.6; 
+    line-height: 1.6;
 }
 
 /* Ensuring images are responsive and do not overflow */
@@ -29,7 +34,8 @@ body {
     height: auto;
     display: block;
     margin: 10px auto;
-    border-radius: 5px; /* Optional for better aesthetics */
+    border-radius: 5px;
+    /* Optional for better aesthetics */
 }
 
 /* Ensuring the text content does not overflow */
@@ -53,7 +59,8 @@ body {
 .article-left {
     padding-right: 20px;
     border-right: 2px solid #ccc;
-    overflow: hidden; /* Ensures no content overflows */
+    overflow: hidden;
+    /* Ensures no content overflows */
     text-align: justify;
     font-family: 'Merriweather', serif;
 }
@@ -73,7 +80,7 @@ body {
         padding-bottom: 15px;
         margin-bottom: 15px;
     }
-    
+
     .article-right {
         padding-left: 0;
     }
@@ -150,7 +157,8 @@ body {
     background-color: #8B0000;
 }
 
-html, body {
+html,
+body {
     height: 100%;
     margin: 0;
     padding: 0;
@@ -159,7 +167,7 @@ html, body {
 .container {
     display: flex;
     flex-wrap: wrap;
-    min-height: 100vh; 
+    min-height: 100vh;
     margin: 0 auto;
     max-width: 1200px;
 }
@@ -167,7 +175,7 @@ html, body {
 .left-section {
     width: 70%;
     padding: 20px;
-    border-right: 2px solid #ddd; 
+    border-right: 2px solid #ddd;
     display: flex;
     flex-direction: column;
 }
@@ -179,7 +187,8 @@ html, body {
     flex-direction: column;
 }
 
-.left-section, .right-section {
+.left-section,
+.right-section {
     min-height: 100vh;
 }
 
@@ -205,7 +214,8 @@ html, body {
 }
 
 .article-list li:last-child {
-    border-bottom: none; /* Removes the border from the last item */
+    border-bottom: none;
+    /* Removes the border from the last item */
 }
 
 .article-list li:hover {
@@ -232,31 +242,38 @@ body {
     line-height: 1.5;
     font-family: 'Poppins', sans-serif;
 }
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
 .custom-container {
     max-width: 1170px;
     margin: auto;
 }
+
 .custom-row {
     display: flex;
     flex-wrap: wrap;
 }
+
 ul {
     list-style: none;
 }
+
 .custom-footer {
     background-color: #24262b;
-    padding: 50px 0 20px 0; /* Reduced bottom padding */
+    padding: 50px 0 20px 0;
+    /* Reduced bottom padding */
 }
 
 .custom-footer-col {
     width: 25%;
     padding: 0 15px;
 }
+
 .custom-footer-col h4 {
     font-size: 18px;
     color: #ffffff;
@@ -265,6 +282,7 @@ ul {
     font-weight: 500;
     position: relative;
 }
+
 .custom-footer-col h4::before {
     content: '';
     position: absolute;
@@ -275,9 +293,11 @@ ul {
     box-sizing: border-box;
     width: 50px;
 }
+
 .custom-footer-col ul li:not(:last-child) {
     margin-bottom: 10px;
 }
+
 .custom-footer-col ul li a {
     font-size: 16px;
     text-transform: capitalize;
@@ -287,10 +307,12 @@ ul {
     display: block;
     transition: all 0.3s ease;
 }
+
 .custom-footer-col ul li a:hover {
     color: #ffffff;
     padding-left: 8px;
 }
+
 .custom-social-links a {
     display: inline-block;
     height: 40px;
@@ -303,6 +325,7 @@ ul {
     color: #ffffff;
     transition: all 0.5s ease;
 }
+
 .custom-social-links a:hover {
     color: #24262b;
     background-color: #ffffff;
@@ -331,6 +354,7 @@ ul {
         margin-bottom: 30px;
     }
 }
+
 @media (max-width: 574px) {
     .custom-footer-col {
         width: 100%;
@@ -342,17 +366,22 @@ ul {
     text-align: center;
     font-size: 16px;
     color: #bbbbbb;
-    margin-top: 5px; /* Further reduced margin */
-    padding-top: 15px; /* Further reduced padding */
+    margin-top: 5px;
+    /* Further reduced margin */
+    padding-top: 15px;
+    /* Further reduced padding */
     border-top: 1px solid rgba(255, 255, 255, 0.2);
-    line-height: 1.2; /* Reduce line height for compact text */
+    line-height: 1.2;
+    /* Reduce line height for compact text */
 }
 
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
     }
-    .left-section, .right-section {
+
+    .left-section,
+    .right-section {
         width: 100%;
         border-right: none;
         border-bottom: 2px solid #ddd;
@@ -363,32 +392,43 @@ ul {
 .article-content {
     line-height: 1.6;
     margin-top: 1.5rem;
-  }
-  
-  .article-content p {
+}
+
+.article-content p {
     margin-bottom: 1rem;
-  }
-  
-  .article-content strong {
+}
+
+.article-content strong {
     font-weight: bold;
-  }
-  
-  .article-content em {
+}
+
+.article-content em {
     font-style: italic;
-  }
-  
-  .article-content ul, .article-content ol {
+}
+
+.article-content ul,
+.article-content ol {
     margin-left: 1.5rem;
     margin-bottom: 1rem;
-  }
-  
-  .article-item:hover {
+}
+
+.article-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.article-date {
+    margin-top: 1px;
+}
+
+.article-item:hover {
     background-color: #f8f9fa;
     cursor: pointer;
-  }
+}
 
- /* Thin, professional search bar */
- .search-input {
+/* Thin, professional search bar */
+.search-input {
     width: 200px;
     height: 30px;
     font-size: 14px;
@@ -396,10 +436,10 @@ ul {
     border: 1px solid #ccc;
     padding-left: 10px;
     transition: all 0.3s ease-in-out;
-  }
+}
 
-  /* Thin search button */
-  .search-btn {
+/* Thin search button */
+.search-btn {
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 50%;
@@ -409,32 +449,33 @@ ul {
     align-items: center;
     justify-content: center;
     transition: background-color 0.3s ease-in-out, border 0.3s;
-  }
+}
 
-  /* Icon inside button */
-  .search-btn i {
+/* Icon inside button */
+.search-btn i {
     color: #555;
-  }
+}
 
-  /* Hover effects */
-  .search-btn:hover {
-    background-color: #e0e0e0 !important; /* Grey hover */
+/* Hover effects */
+.search-btn:hover {
+    background-color: #e0e0e0 !important;
+    /* Grey hover */
     border: 1px solid #b0b0b0;
-  }
+}
 
-  .search-input:focus {
+.search-input:focus {
     outline: none;
     border-color: #999;
     box-shadow: none;
-  }
+}
 
-  /* Adjustments for responsiveness */
-  @media (max-width: 991px) {
+/* Adjustments for responsiveness */
+@media (max-width: 991px) {
     .search-input {
-      width: 160px;
+        width: 160px;
     }
-  }
+}
 
-  #article-content {
+#article-content {
     padding: 2%;
-  }
+}
