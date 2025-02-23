@@ -163,3 +163,128 @@ if (navigator.geolocation) {
 } else {
     fetchWeather(28.6139, 77.209);
 }
+
+$(document).ready(function () {
+    let searchController;
+    let currentRequestId;
+
+    $("#newsSearchForm").submit(function (event) {
+        event.preventDefault();
+
+        let topic = $("#searchInput").val().trim();
+        let searchButton = $("#newsSearchForm button");
+        currentRequestId = Date.now(); // Store current request ID
+
+        if (!topic) {
+            alert("Please enter a topic.");
+            return;
+        }
+
+        // Cancel previous request if exists
+        if (searchController) {
+            searchController.abort();
+            searchController = null;
+        }
+
+        searchController = new AbortController();
+
+        searchButton.prop("disabled", true).text("Searching...");
+        $("#modalContent").html('<div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>');
+        $("#newsModal").modal("show");
+
+        fetch(`http://localhost:5000/api/news/fetch-news`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ 
+                topic, 
+                requestId: currentRequestId 
+            }),
+            signal: searchController.signal
+        })
+        .then(response => {
+            if (!response.ok) throw new Error("Server error");
+            return response.json();
+        })
+        .then(data => {
+            if (currentRequestId === data.requestId) {
+                // First show "Collected all articles"
+                $("#modalContent").html('<p class="text-success">Collected all articles</p>');
+                
+                // After 1.5 seconds, show processing spinner
+                setTimeout(() => {
+                    $("#modalContent").html(` 
+                        <div class="text-center">
+                            <div class="spinner-border text-primary" role="status"></div>
+                            <p class="mt-2">Processing...</p>
+                        </div>
+                    `);
+        
+                    // Make the second request to process articles
+                    fetch('http://localhost:7000/processed-articles', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data.articles)
+                    })
+                    .then(response => response.json())
+                    .then(processedData => {
+                        let contentHtml = '<div class="container">';
+
+                        processedData.forEach(article => {
+                            contentHtml += `
+                                <div class="card mb-4 shadow-lg p-3 rounded border-0">
+                                    <div class="row g-0">
+                                        <div class="col-md-4 d-flex align-items-center">
+                                            <img src="${article.image}" class="img-fluid rounded" alt="News Image" style="width: 100%; height: 200px; object-fit: cover;">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <h5 class="card-title fw-bold">${article.title}</h5>
+                                                <p class="text-muted"><small>${article.date}</small></p>
+                                                <p class="card-text printed">${article.article}</p>
+                                                <a href="${article.url}" target="_blank" class="btn btn-primary btn-sm mt-2">Read More</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        });
+
+                        contentHtml += '</div>';
+                        $("#modalContent").html(contentHtml);
+                    })
+                    .catch(error => {
+                        $("#modalContent").html("<p class='text-danger'>Failed to process articles.</p>");
+                        console.error("Processing error:", error);
+                    });
+
+                }, 1500);
+            }
+        })
+        .catch(error => {
+            if (error.name === "AbortError") {
+                console.log("Request aborted");
+            } else {
+                $("#modalContent").html("<p class='text-danger'>Failed to fetch news, Please try again. " + error + " </p>");
+                console.error("Fetch error:", error);
+            }
+        })
+        .finally(() => {
+            searchButton.prop("disabled", false).text("Search");
+        });
+    });
+
+    // Handle modal close
+    $("#newsModal").on("hidden.bs.modal", function () {
+        if (searchController) {
+            searchController.abort();
+            searchController = null;
+            
+            // Notify backend to cancel the request
+            fetch(`http://localhost:5000/api/news/cancel`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ requestId: currentRequestId })
+            }).catch(error => console.error("Error canceling request:", error));
+        }
+    });
+});

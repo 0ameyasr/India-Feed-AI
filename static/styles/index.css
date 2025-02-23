@@ -132,30 +132,6 @@ body {
     color: #A52A2A;
 }
 
-/* Search Bar Styling */
-.search-input {
-    width: 220px;
-    border-radius: 20px;
-    border: 1px solid #ccc;
-    padding: 5px 15px;
-    transition: all 0.3s ease-in-out;
-}
-
-.search-input:focus {
-    border-color: #A52A2A;
-    box-shadow: none;
-}
-
-.search-btn {
-    border-radius: 20px;
-    background-color: #A52A2A;
-    color: white;
-    margin-left: 5px;
-}
-
-.search-btn:hover {
-    background-color: #8B0000;
-}
 
 html,
 body {
@@ -427,55 +403,14 @@ ul {
     cursor: pointer;
 }
 
-/* Thin, professional search bar */
-.search-input {
-    width: 200px;
-    height: 30px;
-    font-size: 14px;
-    border-radius: 20px;
-    border: 1px solid #ccc;
-    padding-left: 10px;
-    transition: all 0.3s ease-in-out;
-}
-
-/* Thin search button */
-.search-btn {
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 50%;
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s ease-in-out, border 0.3s;
-}
-
-/* Icon inside button */
-.search-btn i {
-    color: #555;
-}
-
-/* Hover effects */
-.search-btn:hover {
-    background-color: #e0e0e0 !important;
-    /* Grey hover */
-    border: 1px solid #b0b0b0;
-}
-
-.search-input:focus {
-    outline: none;
-    border-color: #999;
-    box-shadow: none;
-}
 
 /* Adjustments for responsiveness */
-@media (max-width: 991px) {
-    .search-input {
-        width: 160px;
-    }
-}
-
 #article-content {
     padding: 2%;
+}
+
+.card-text > p{
+    text-align:  justify;
+    font-family: 'Merriweather', serif;
+    font-size: small;
 }

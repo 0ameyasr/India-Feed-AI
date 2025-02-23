@@ -31,7 +31,7 @@
     />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="static/scripts/index.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   </head>
 
   <body>
@@ -45,16 +45,16 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-custom">
       <div class="container-fluid">
         <!-- Search Bar on Extreme Left -->
-        <form class="d-flex search-container">
-          <input
-            class="form-control search-input"
-            type="search"
-            placeholder="🔎 Search"
-            aria-label="Search"
-          />
-          <button class="btn search-btn" type="submit">
-            <i class="fas fa-search"></i>
-          </button>
+        <form class="d-flex search-container" id="newsSearchForm">
+          <div class="input-group">  <input
+                id="searchInput"
+                class="form-control search-input"
+                type="search"
+                placeholder="🔎 Search a Topic"
+                aria-label="Search"
+            />
+            <button class="btn btn-success" type="submit">Search</button>
+          </div>
         </form>
 
         <!-- Navbar Toggler for Mobile -->
@@ -97,8 +97,29 @@
 
     <br />
 
+    <!-- Fullscreen Modal -->
+    <div class="modal fade" id="newsModal" tabindex="-1" aria-labelledby="newsModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-fullscreen">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="newsModalLabel">Search Results</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body text-center" id="modalContent">
+                  <div class="spinner-border text-primary" role="status">
+                      <span class="visually-hidden">Loading...</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+
     <div class="container article-container">
       <div class="row">
+        <div class="spinner-border" role="status" id="spinner" hidden>
+          <span class="visually-hidden">Loading...</span>
+        </div>
+
         <!-- Left Section: Displays Selected Article -->
         <div class="col-md-8 article-left" id="article-content">
           <!-- Article content will be displayed here -->
@@ -173,7 +194,6 @@
 
     <!-- Font Awesome for Social Media Icons -->
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script
@@ -187,7 +207,6 @@
       integrity="sha384-VoPF+ty3c02cvoQ8V5XUg5DxS07HGG2hKq6P78gk2J7EY84rRk0AWBq6KhBo7T6E"
       crossorigin="anonymous"
     ></script>
-
     <script>
       // [DO NOT MODIFY] All article data is saved into this JS constant.
       const articlesData = {
@@ -206,5 +225,6 @@
         {% endfor %}
       };
     </script>
+    <script src="static/scripts/index.js"></script>
   </body>
 </html>

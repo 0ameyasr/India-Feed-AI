@@ -7,6 +7,7 @@ const webScrapingService = new WebScrapingService();
 const newsController = new NewsController(webScrapingService);
 
 router.post('/fetch-news', (req, res) => newsController.fetchNews(req, res));
+router.post('/cancel', (req, res) => newsController.cancelRequest(req, res));
 router.get('/trending-videos', (req, res) => newsController.fetchTrendingVideos(req, res));
 
 module.exports = router;
