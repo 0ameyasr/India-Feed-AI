@@ -278,10 +278,10 @@ ul {
     position: absolute;
     left: 0;
     bottom: -10px;
-    background-color: #e91e63;
+    background-color: #A52A2A;
     height: 2px;
     box-sizing: border-box;
-    width: 50px;
+    width: 60px;
 }
 .custom-footer-col ul li:not(:last-child) {
     margin-bottom: 10px;
@@ -294,6 +294,7 @@ ul {
     font-weight: 300;
     display: block;
     transition: all 0.3s ease;
+    padding-left: -10px;
 }
 .custom-footer-col ul li a:hover {
     color: #ffffff;
@@ -359,15 +360,24 @@ ul {
 
 .footer-logo {
     font-family: "Oswald", sans-serif;
-    font-size: 25px;
+    font-size: 20px;
     color: #A52A2A;
     letter-spacing: 3px;
-    font-weight: 600;
-    
-    text-transform: capitalize;
+    font-weight: 500;
+    text-transform: uppercase;
     margin-bottom: 30px;
-    font-weight: 400;
     position: relative;
+}
+
+.custom-footer-col h3::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    background-color: #A52A2A;
+    height: 3px;
+    box-sizing: border-box;
+    width: 120px;
 }
 
 @media (max-width: 768px) {
