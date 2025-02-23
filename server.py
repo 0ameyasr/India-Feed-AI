@@ -18,6 +18,7 @@ def home():
         topic_articles = list(articles.find({"topic": topic}))
         for article in topic_articles:
             if 'article' in article:
+                article['title'] =  markdown2.markdown(article["title"])
                 article['article'] = markdown2.markdown(article['article'])
         articles_by_topic[topic] = topic_articles
 

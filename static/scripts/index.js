@@ -8,7 +8,7 @@ function showTopicArticles(topic) {
         const li = document.createElement('li');
         li.className = 'list-group-item article-item';
         li.onclick = () => loadArticle(article.title, article.content, article.date, article.image_url);
-        li.textContent = article.title;
+        li.innerHTML = article.title;
         articlesList.appendChild(li);
     });
 
