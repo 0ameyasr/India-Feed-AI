@@ -29,7 +29,7 @@ function loadArticle(title, content, date, image_url) {
     articleContent.innerHTML = `
       <h2>${title || 'No Title Available'}</h2>
       ${date ? `<p><i>${date}</i></p>` : ''}
-      <img src=${image_url} alt="Image" width="690" height="388"/>
+      <img src=${image_url} alt="Image" width="600" height="300"/>
       <div class="article-content">${content || 'No content available'}</div>
     `;
 
@@ -46,3 +46,45 @@ function loadArticle(title, content, date, image_url) {
 document.addEventListener('DOMContentLoaded', () => {
     showTopicArticles('Finance');
 });
+
+function fetchWeather(lat, lon) {
+    const apiKey = "ed81be9a5581a99556e37f20ab4a77f4";
+    fetch(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`
+    )
+        .then((response) => response.json())
+        .then((data) => {
+            let temp = `${Math.round(data.main.temp)}°C`;
+            let location = data.name;
+            updateDateWeather(location, temp);
+        })
+        .catch((error) => {
+            console.error("Weather fetch error:", error);
+            updateDateWeather("Delhi", "N/A");
+        });
+}
+
+function updateDateWeather(location, temp) {
+    let date = new Date().toLocaleDateString("en-IN", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    });
+    document.getElementById(
+        "date-weather"
+    ).innerText = `${date} | ${location}, ${temp}`;
+}
+
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+        (position) =>
+            fetchWeather(position.coords.latitude, position.coords.longitude),
+        (error) => {
+            console.error("Geolocation error:", error);
+            fetchWeather(28.6139, 77.209);
+        }
+    );
+} else {
+    fetchWeather(28.6139, 77.209);
+}

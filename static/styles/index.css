@@ -23,22 +23,22 @@ body {
     line-height: 1.6; 
 }
 
-#article-content {
-    font-family: 'Merriweather', serif;
-    text-align: justify;
-    font-weight: 400;
-    line-height: 1.8;
-    font-size: 18px;
-    color: #333;
+/* Ensuring images are responsive and do not overflow */
+#article-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 10px auto;
+    border-radius: 5px; /* Optional for better aesthetics */
 }
 
-#article-content h1,
-#article-content h2,
-#article-content h3 {
-    font-family: 'Merriweather', serif;
-    font-weight: 700; 
+/* Ensuring the text content does not overflow */
+#article-content p {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
+/* Container Settings */
 .article-container {
     max-width: 1100px;
     margin: 20px auto;
@@ -49,25 +49,39 @@ body {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Left Section */
 .article-left {
     padding-right: 20px;
-    border-right: 2px solid #ccc; 
+    border-right: 2px solid #ccc;
+    overflow: hidden; /* Ensures no content overflows */
+    text-align: justify;
+    font-family: 'Merriweather', serif;
 }
 
+/* Right Section */
 .article-right {
     padding-left: 20px;
+    overflow: hidden;
 }
 
+/* Responsive Design */
 @media (max-width: 768px) {
     .article-left {
         border-right: none;
         padding-right: 0;
-        border-bottom: 2px solid #ccc; 
+        border-bottom: 2px solid #ccc;
         padding-bottom: 15px;
         margin-bottom: 15px;
     }
+    
     .article-right {
         padding-left: 0;
+    }
+
+    /* Ensure images do not overflow on smaller screens */
+    #article-content img {
+        max-width: 100%;
+        height: auto;
     }
 }
 
@@ -402,4 +416,8 @@ ul {
     .search-input {
       width: 160px;
     }
+  }
+
+  #article-content {
+    padding: 2%;
   }
