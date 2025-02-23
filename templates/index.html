@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>T.B.B.</title>
+    <title>The Bharat Bulletin</title>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"
@@ -35,6 +35,13 @@
   </head>
 
   <body>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
     <!-- HEADING -->
     <header class="my-3 px-3">
       <p id="date-weather" class="text-muted text-start m-0">Loading...</p>
@@ -87,7 +94,13 @@
           </ul>
         </div>
       </div>
-    </nav>
+    </nav>  
+    <!-- Translation Bar (Below Navbar) -->
+    <div class="translation-bar bg-light text-center py-2">
+      <div id="google_translate_element"></div>
+    </div>
+
+
 
     <!-- Font Awesome Script -->
     <script
@@ -206,7 +219,7 @@
               {
                 title: {{ article.title|tojson|safe }},
                 content: {{ article.article|tojson|safe }},
-                date: {{ article.date|tojson|safe }},
+                date: {{ article.added|tojson|safe }},
                 image_url: {{ article.image|default('', true)|tojson|safe }},
                 article_url: {{ article.url|default('',true)|tojson|safe}}
               }{% if not loop.last %},{% endif %}

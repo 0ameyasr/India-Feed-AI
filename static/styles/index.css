@@ -27,23 +27,19 @@ body {
     line-height: 1.6;
 }
 
-/* Ensuring images are responsive and do not overflow */
 #article-content img {
     max-width: 100%;
     height: auto;
     display: block;
     margin: 10px auto;
     border-radius: 5px;
-    /* Optional for better aesthetics */
 }
 
-/* Ensuring the text content does not overflow */
 #article-content p {
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
 
-/* Container Settings */
 .article-container {
     max-width: 1100px;
     margin: 20px auto;
@@ -54,23 +50,19 @@ body {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Left Section */
 .article-left {
     padding-right: 20px;
     border-right: 2px solid #ccc;
     overflow: hidden;
-    /* Ensures no content overflows */
     text-align: justify;
     font-family: 'Merriweather', serif;
 }
 
-/* Right Section */
 .article-right {
     padding-left: 20px;
     overflow: hidden;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .article-left {
         border-right: none;
@@ -84,7 +76,6 @@ body {
         padding-left: 0;
     }
 
-    /* Ensure images do not overflow on smaller screens */
     #article-content img {
         max-width: 100%;
         height: auto;
@@ -103,19 +94,16 @@ body {
     justify-content: space-between;
 }
 
-/* Search Bar on Extreme Left */
 .search-container {
     flex-grow: 0;
     margin-left: 15px;
 }
 
-/* Keep Navigation Links Centered */
 #navbarNav {
     flex-grow: 1;
     justify-content: center !important;
 }
 
-/* Navigation Link Styles */
 .navbar-nav .nav-item {
     margin: 0 15px;
 }
@@ -190,7 +178,6 @@ body {
 
 .article-list li:last-child {
     border-bottom: none;
-    /* Removes the border from the last item */
 }
 
 .article-list li:hover {
@@ -235,7 +222,7 @@ ul {
 }
 .custom-footer {
     background-color: #24262b;
-    padding: 50px 0 20px 0; /* Reduced bottom padding */
+    padding: 50px 0 20px 0;
 }
 
 .custom-footer-col {
@@ -312,7 +299,6 @@ ul {
     font-style: italic;
 }
 
-/* Adjust tagline color in dark mode (footer) */
 .custom-footer .tagline {
     color: #bbbbbb;
     text-align: left;
@@ -320,7 +306,6 @@ ul {
     font-style: normal;
 }
 
-/* Responsive Fixes */
 @media (max-width: 767px) {
     .custom-footer-col {
         width: 50%;
@@ -333,15 +318,14 @@ ul {
     }
 }
 
-/* Copyright Section */
 .copyright {
     text-align: center;
     font-size: 16px;
     color: #bbbbbb;
-    margin-top: 5px; /* Further reduced margin */
-    padding-top: 15px; /* Further reduced padding */
+    margin-top: 5px;
+    padding-top: 15px;
     border-top: 1px solid rgba(255, 255, 255, 0.2);
-    line-height: 1.2; /* Reduce line height for compact text */
+    line-height: 1.2;
 }
 
 .footer-logo {
@@ -419,7 +403,6 @@ ul {
 }
 
 
-/* Adjustments for responsiveness */
 #article-content {
     padding: 2%;
 }
@@ -428,4 +411,17 @@ ul {
     text-align:  justify;
     font-family: 'Merriweather', serif;
     font-size: small;
+}
+
+.translation-bar {
+    background-color: #f8f9fa;
+    padding: 8px;
+    font-size: 16px;
+    border-bottom: 1px solid #ddd;
+}
+#google_translate_element select {
+    border: none;
+    background: transparent;
+    font-size: 16px;
+    cursor: pointer;
 }

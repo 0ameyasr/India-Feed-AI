@@ -31,7 +31,7 @@ class WebScrapingService {
             return container
                 ? Array.from(container.querySelectorAll('a.grid_card_link'))
                     .map(a => a.href)
-                    .filter(link => !link.includes('/visualstories/') && !link.includes('/magazine/'))
+                    .filter(link => !link.includes('/visualstories/') && !link.includes('/magazine/')) && !link.includes('podcasts.indiatoday')
                     .slice(0, 5)
                 : [];
         });

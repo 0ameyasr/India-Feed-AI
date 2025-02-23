@@ -173,14 +173,13 @@ $(document).ready(function () {
 
         let topic = $("#searchInput").val().trim();
         let searchButton = $("#newsSearchForm button");
-        currentRequestId = Date.now(); // Store current request ID
+        currentRequestId = Date.now();
 
         if (!topic) {
             alert("Please enter a topic.");
             return;
         }
 
-        // Cancel previous request if exists
         if (searchController) {
             searchController.abort();
             searchController = null;
@@ -207,10 +206,8 @@ $(document).ready(function () {
         })
         .then(data => {
             if (currentRequestId === data.requestId) {
-                // First show "Collected all articles"
                 $("#modalContent").html('<p class="text-success">Collected all articles</p>');
                 
-                // After 1.5 seconds, show processing spinner
                 setTimeout(() => {
                     $("#modalContent").html(` 
                         <div class="text-center">
@@ -219,7 +216,6 @@ $(document).ready(function () {
                         </div>
                     `);
         
-                    // Make the second request to process articles
                     fetch('http://localhost:7000/processed-articles', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -273,13 +269,11 @@ $(document).ready(function () {
         });
     });
 
-    // Handle modal close
     $("#newsModal").on("hidden.bs.modal", function () {
         if (searchController) {
             searchController.abort();
             searchController = null;
             
-            // Notify backend to cancel the request
             fetch(`http://localhost:5000/api/news/cancel`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -288,3 +282,7 @@ $(document).ready(function () {
         }
     });
 });
+
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+}
