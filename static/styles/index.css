@@ -208,6 +208,7 @@ body {
     width: 100%;
     position: relative;
     bottom: 0;
+    color: white;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
@@ -241,6 +242,15 @@ ul {
     width: 25%;
     padding: 0 15px;
 }
+
+.footer-link {
+    color: #bbbbbb;
+}
+.footer-link:hover {
+    color: #a52a2a;
+    cursor: pointer;
+}
+
 .custom-footer-col h4 {
     font-size: 18px;
     color: #ffffff;

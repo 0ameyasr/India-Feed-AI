@@ -41,50 +41,6 @@
       <h1 class="heading text-center m-0">The Bharat Bulletin</h1>
     </header>
 
-    <script>
-      function fetchWeather(lat, lon) {
-        const apiKey = "ed81be9a5581a99556e37f20ab4a77f4";
-        fetch(
-          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`
-        )
-          .then((response) => response.json())
-          .then((data) => {
-            let temp = `${Math.round(data.main.temp)}°C`;
-            let location = data.name;
-            updateDateWeather(location, temp);
-          })
-          .catch((error) => {
-            console.error("Weather fetch error:", error);
-            updateDateWeather("Delhi", "N/A");
-          });
-      }
-
-      function updateDateWeather(location, temp) {
-        let date = new Date().toLocaleDateString("en-IN", {
-          weekday: "long",
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        });
-        document.getElementById(
-          "date-weather"
-        ).innerText = `${date} | ${location}, ${temp}`;
-      }
-
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) =>
-            fetchWeather(position.coords.latitude, position.coords.longitude),
-          (error) => {
-            console.error("Geolocation error:", error);
-            fetchWeather(28.6139, 77.209);
-          }
-        );
-      } else {
-        fetchWeather(28.6139, 77.209);
-      }
-    </script>
-
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-custom">
       <div class="container-fluid">
@@ -194,31 +150,21 @@
           <div class="custom-footer-col">
             <h4>Categories</h4>
             <ul>
-              <li><a href="#">Finance</a></li>
-              <li><a href="#">Politics</a></li>
-              <li><a href="#">Entertainment</a></li>
-              <li><a href="#">Sports</a></li>
-              <li><a href="#">Global</a></li>
-              <li><a href="#">Technology</a></li>
-            </ul>
-          </div>
-          <div class="custom-footer-col">
-            <h4>Get Help</h4>
-            <ul>
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Contact Us</a></li>
-              <li><a href="#">Social Media</a></li>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Advertise With Us</a></li>
+              <li><a class="footer-link" href="#" onclick="showTopicArticles('Finance')">Finance</a></li>
+              <li><a class="footer-link" href="#" onclick="showTopicArticles('Politics')">Politics</a></li>
+              <li><a class="footer-link" href="#" onclick="showTopicArticles('Entertainment')">Entertainment</a></li>
+              <li><a class="footer-link" href="#" onclick="showTopicArticles('Sports')">Sports</a></li>
+              <li><a class="footer-link" href="#" onclick="showTopicArticles('Global')">Global</a></li>
+              <li><a class="footer-link" href="#" onclick="showTopicArticles('Technology')">Technology</a></li>
             </ul>
           </div>
           <div class="custom-footer-col">
             <h4>Follow Us</h4>
             <div class="custom-social-links">
-              <a href="#"><i class="fab fa-facebook-f"></i></a>
-              <a href="#"><i class="fab fa-twitter"></i></a>
-              <a href="#"><i class="fab fa-instagram"></i></a>
-              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+              <a><i class="fab fa-facebook-f"></i></a>
+              <a><i class="fab fa-twitter"></i></a>
+              <a><i class="fab fa-instagram"></i></a>
+              <a><i class="fab fa-linkedin-in"></i></a>
             </div>
           </div>
         </div>
@@ -261,7 +207,8 @@
                 title: {{ article.title|tojson|safe }},
                 content: {{ article.article|tojson|safe }},
                 date: {{ article.date|tojson|safe }},
-                image_url: {{ article.image|default('', true)|tojson|safe }}
+                image_url: {{ article.image|default('', true)|tojson|safe }},
+                article_url: {{ article.url|default('',true)|tojson|safe}}
               }{% if not loop.last %},{% endif %}
             {% endfor %}
           ],

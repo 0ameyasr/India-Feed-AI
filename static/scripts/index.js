@@ -192,7 +192,7 @@ $(document).ready(function () {
         $("#modalContent").html('<div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>');
         $("#newsModal").modal("show");
 
-        fetch(`http://localhost:5000/api/news/fetch-news`, {
+        fetch(`http://localhost:7070/api/news/fetch-news`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ 
