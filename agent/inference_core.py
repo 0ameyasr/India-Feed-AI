@@ -1,11 +1,13 @@
 import os
-import dotenv
+from dotenv import load_dotenv
 
 from langchain_google_genai import ChatGoogleGenerativeAI
 from google.generativeai.types.safety_types import HarmBlockThreshold, HarmCategory
 
 UNFILTERED = HarmBlockThreshold.BLOCK_NONE
 SERVER_CWD = os.path.join(os.getcwd(),os.path.dirname(__file__))
+
+load_dotenv()
 
 class BaseModel:
     def __init__(self) -> None:
