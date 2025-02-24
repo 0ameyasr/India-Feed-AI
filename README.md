@@ -1,3 +1,10 @@
+# 🚀 **The Bharat Bulletin is Live!** 🌍
+
+Exciting news! **The Bharat Bulletin** is now live and accessible online! You can check out the latest news and updates here:
+
+🔗 [Visit The Bharat Bulletin Now](https://the-bharat-bulletin.onrender.com/#)
+
+
 # India-Feed-AI
 
 Welcome to **India-Feed-AI**, the core engine behind our prototype, **The Bharat Bulletin**. This repository powers the website's logic, handling everything from news scraping to AI-driven summarization.
