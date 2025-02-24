@@ -59,6 +59,67 @@ class WebScrapingService {
         }
     }
 
+    async scrapeTopArticles(articleLinks, signal, browser) {
+        const articles = [];
+        const page = await browser.newPage();
+        
+        for (const link of articleLinks) {
+            if (signal.aborted) throw new Error('AbortError');
+
+            try {
+                console.log(`Fetching article: ${link}`);
+                const articleData = await this.scrapeArticleDetails(page, link, signal);
+                if (articleData) {
+                    articles.push(articleData);
+                }
+            } catch (error) {
+                console.error(`Error scraping article ${link}:`, error);
+                continue;
+            }
+        }
+
+        return articles;
+    }
+
+    async scrapeArticleDetails(page, articleUrl, signal) {
+        if (signal.aborted) throw new Error('AbortError');
+
+        try {
+            await page.goto(articleUrl, { 
+                waitUntil: 'networkidle2',
+                timeout: 30000 
+            });
+
+            if (signal.aborted) throw new Error('AbortError');
+
+            return await page.evaluate((url) => {
+                const titleElement = document.querySelector('h1[class^="Story_strytitle"]');
+                const kickerElement = document.querySelector('div.story-kicker h2');
+                const imageElement = document.querySelector('img[src^="https://akm-img-a-in.tosshub.com/indiatoday/images/story/"]');
+                const paragraphElements = document.querySelectorAll('p');
+                const spanUpdate = document.querySelector('span.strydate');
+               
+                return {
+                    url: url, 
+                    title: titleElement ? titleElement.innerText.trim() : null,
+                    storyKicker: kickerElement ? kickerElement.innerText.trim() : null,
+                    image: imageElement ? imageElement.src : null,
+                    corpus: (kickerElement ? kickerElement.innerText.trim() + " " : "") + 
+                           Array.from(paragraphElements)
+                               .map(p => p.innerText.trim())
+                               .filter(text => text.length > 0)
+                               .join(' '),
+                    dated: spanUpdate ? spanUpdate.innerText.trim() : null,
+                };
+            }, articleUrl);
+
+        } catch (error) {
+            console.error(`Failed to scrape article ${articleUrl}:`, error);
+            return null;
+        }
+    }
+
+    
     async scrapeTrendingVideos() {
         let browser = null;
         try {
