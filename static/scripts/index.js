@@ -208,6 +208,8 @@ $(document).ready(function () {
             return response.json();
         })
         .then(data => {
+            console.log(data)
+            console.log(data.articles)
             if (currentRequestId === data.requestId) {
                 $("#modalContent").html('<p class="text-success">Collected all articles</p>');
                 
