@@ -1,5 +1,4 @@
 from agent.summarizer import Summarizer
-from apscheduler.schedulers.blocking import BlockingScheduler
 from pymongo import MongoClient
 from datetime import datetime
 
@@ -116,17 +115,6 @@ def populate_across_all_topics():
     print(f"Finished database population for all topics")
     
 if __name__ == "__main__":
-    scheduler = BlockingScheduler()
-    scheduler.add_job(func=populate_across_all_topics,
-                      trigger='cron',
-                      hour='3,6,10,12,14,16,18,20,22,0',
-                      minute='0',
-                      name="Populating articles")
-
-    print(f"Started process_scheduler @ IST {datetime.now(IST_TMZ)}")
-    try:
-        scheduler.start()
-    except KeyboardInterrupt:
-        print(f"Scheduler interrupted.")
-    except Exception as error:
-        print(f"An error occured while running jobs: \n{error}")
+    print(f"Starting one-time execution of process_scheduler @ IST {datetime.now(IST_TMZ)}")
+    populate_across_all_topics()
+    print(f"Execution finished @ IST {datetime.now(IST_TMZ)}")
