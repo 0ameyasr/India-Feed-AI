@@ -6,3 +6,4 @@ pymongo
 flask
 langchain_google_genai
 google-generativeai
+apscheduler
