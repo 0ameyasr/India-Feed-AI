@@ -6,11 +6,11 @@ class WebScrapingService {
         try {
             if (signal.aborted) throw new Error("AbortError");
 
-            browser = await puppeteer.launch({ 
-                headless: true,
-                args: ['--no-sandbox', '--disable-setuid-sandbox'],
-                executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/opt/render/.cache/puppeteer/chrome/linux-133.0.6943.98/chrome' // **Added executablePath**
-            });
+            const browser = await puppeteer.launch({
+                headless: "new",
+                executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || await puppeteer.executablePath(),
+                args: ["--no-sandbox", "--disable-setuid-sandbox"]
+            });            
 
             const page = await browser.newPage();
             await page.setDefaultNavigationTimeout(30000);
