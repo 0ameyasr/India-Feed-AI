@@ -84,7 +84,7 @@ def populate_articles(topic:str):
         print(f"Error: {error}")
 
 def fetch_trending_videos():
-    url = "http://localhost:7070/api/news/trending-videos"
+    url = "http://india-feed-ai.onrender.com/api/news/trending-videos"
     videos = requests.get(url).json()
     for video in videos:
         exists = DB["trending_videos"].find_one({"url":video["url"]})

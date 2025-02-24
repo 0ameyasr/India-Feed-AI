@@ -192,7 +192,7 @@ $(document).ready(function () {
         $("#newsModal").modal("show");
         $("#newsModalLabel").html(`Search Results - ${topic}`);
 
-        fetch(`http://localhost:7070/api/news/fetch-news`, {
+        fetch(`http://india-feed-ai.onrender.com/api/news/fetch-news`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ 
@@ -277,7 +277,7 @@ $(document).ready(function () {
             searchController.abort();
             searchController = null;
             
-            fetch(`http://localhost:7070/api/news/cancel`, {
+            fetch(`http://india-feed-ai.onrender.com/api/news/cancel`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ requestId: currentRequestId })

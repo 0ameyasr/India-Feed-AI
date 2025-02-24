@@ -1,13 +1,13 @@
 import os
 import markdown2
 import requests
-import pytz
+import pytz 
 import time
 
 from datetime import datetime
 from agent.summarizer import Summarizer
 from pymongo import MongoClient
-from flask import render_template, Flask, request, jsonify
+from flask import render_template, Flask, session, request, jsonify
 
 app = Flask(__name__)
 mongo = MongoClient(os.getenv("MONGO_URI"))
@@ -17,9 +17,7 @@ videos = db["trending_videos"]
 SUMMARIZER = Summarizer()
 IST_TMZ = pytz.timezone("Asia/Kolkata")
 
-NODE_SERVICE_URL = "http://localhost:7070"
-
-@app.route("/", methods=["GET"])
+@app.route("/",methods=["GET"])
 def home():
     topics = ["Finance", "Politics", "Defence", "Entertainment", "Sports", "Global", "Technology", "Crime"]
 
@@ -41,26 +39,23 @@ def home():
         "index.html",
         topics=topics,
         articles_by_topic=articles_by_topic,
-        trending_videos=trending_videos,
+        trending_videos = trending_videos,
     )
 
-@app.route("/api/news/<path:endpoint>", methods=["GET", "POST"])
-def proxy_to_node(endpoint):
-    node_url = f"{NODE_SERVICE_URL}/api/news/{endpoint}"
+@app.route("/fetch-news", methods=["POST"])
+def get_news_content():
+    data = request.get_json()
+    topic = data.get("topic", "")
     
-    try:
-        if request.method == "POST":
-            response = requests.post(node_url, json=request.json)
-        else:
-            response = requests.get(node_url)
-        return (response.content, response.status_code, response.headers.items())
+    if not topic:
+        return jsonify({"error": "No topic provided"}), 400
 
-    except requests.exceptions.RequestException as e:
-        return jsonify({"error": "Failed to connect to Node.js", "details": str(e)}), 500
+    return jsonify({"message": f"Fetching news for {topic}"})
 
-@app.route("/processed-articles", methods=["POST"])
+@app.route("/processed-articles",methods=["POST"])
 def get_searched_articles():
     data = request.get_json()
+
     summarized_articles = []
     for article in data:
         summary = SUMMARIZER.summarize(article["corpus"])
@@ -75,7 +70,7 @@ def get_searched_articles():
             "url": article["url"],
             "date": article["dated"],
             "added": datetime_str,
-        }
+        }      
         summarized_articles.append(summarized_article_dict)
         time.sleep(3)
 
