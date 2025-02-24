@@ -4,6 +4,14 @@ Exciting news! **The Bharat Bulletin** is now live and accessible online! You ca
 
 🔗 [Visit The Bharat Bulletin Now](https://the-bharat-bulletin.onrender.com/#)
 
+# Pagespeed performance
+## On Mobile
+![Mobile](screenshots/pagespeed_mobile.png)
+
+## On Desktop
+![Desktop](screenshots/pagespeed_desktop.png)
+
+**Acheives an SEO score of 80+ !**
 
 # India-Feed-AI
 
