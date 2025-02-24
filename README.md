@@ -160,5 +160,6 @@ You're now ready to interact with **The Bharat Bulletin**! 🚀
   ```
   5. Additionally, store it in an environment variable **MONGO_URI** on your local (Windows) system.
      
-- **Keeping Credentials Safe**: Storing API keys in environment variables prevents accidental exposure in source code. 
+- **Keeping Credentials Safe**: Storing API keys in environment variables prevents accidental exposure in source code.
 - **NOTE**: We **cannot leak** the credentials we used because this is a **public** repository. **_We apologize for any inconvenience caused in this regard._**
+- **NOTE**: One common issue during setup is that the keys are not being used or throwing errors, especially when using VSCode. In any such cases, you are encouraged to restart VSCode and try again. This will almost always resolve any missing key issues. 
