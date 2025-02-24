@@ -219,7 +219,7 @@ $(document).ready(function () {
                         </div>
                     `);
         
-                    fetch('/processed-articles', {
+                    fetch('https://the-bharat-bulletin.onrender.com/processed-articles', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(data.articles)
