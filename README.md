@@ -82,10 +82,9 @@ The `process_scheduler.py` script runs **indefinitely** once started and handles
 - Interacts with `cron_app.js` to **fetch web articles in raw JSON format**, leveraging `webScrapingService.js`.
 - Uses `summarizer.py` to **generate summaries and catchy titles** for the fetched articles.
 - Stores the **summarized content and title** in a collection in the relevant database hosted on **MongoDB Atlas Cloud**, ensuring seamless access to fresh articles.
-- All automation is powered by **BlockingScheduler from APScheduler**, ensuring reliable, scheduled execution.
 - When users visit the site, they **instantly see the latest articles** thanks to **server-side rendering with Jinja2 and Flask templating**, eliminating the need for manual publishing.
 
-## 🛠️ Testing & Setup
+## 🛠️ Local Testing & Setup
 To test and run this project locally, follow these steps:
 
 ### 1️⃣ Clone the Repository
