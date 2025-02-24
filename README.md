@@ -62,7 +62,7 @@ We opted for the **cloud-hosted Gemini API 1.5 - Flash** due to its balance of a
 - **Unmatched Speed**: Ensures quick response times, ideal for real-time summarization.
 
 ### ⏳ Optimized Automation
-To stay well within the free-tier limits, we have carefully tuned our **automation jobs**. The `process_scheduler.py` script updates our database **10 times a day** at the following hours:
+To stay well within the free-tier limits, we have carefully tuned our **automation jobs**. The script is run on GitHub Actions, synced to run the jobs at UTC time (converted from IST). The `process_scheduler.py` being run on Actions is a script that updates our database **10 times a day** at the following hours:
 
 - **3 AM, 6 AM, 10 AM, 12 PM, 2 PM, 4 PM, 6 PM, 8 PM, 10 PM, 12 AM**
 
@@ -84,11 +84,11 @@ At most **5 articles per topic** are gathered per session, meaning a maximum of 
 - By leveraging **Gemini API 1.5 - Flash**, we get **cost-effective, high-speed inference without needing powerful hardware**.
 
 ## 🧠 Core Logic: The Autonomous AI Agent
-The `process_scheduler.py` script runs **indefinitely** once started and handles the automation process. Here’s how it works over a day:
+The `process_scheduler.py` script runs **indefinitely** once started and handles the automation process. It is deployed on **GitHub Actions**, and here’s how it works over a day:
 
 - Executes **10 times daily** at predefined hours (as detailed above).
-- Interacts with `cron_app.js` to **fetch web articles in raw JSON format**, leveraging `webScrapingService.js`.
-- Uses `summarizer.py` to **generate summaries and catchy titles** for the fetched articles.
+- Interacts with `cron_app.js` (hosted) to **fetch web articles in raw JSON format**, leveraging `webScrapingService.js`.
+- Uses `summarizer.py` (module) to **generate summaries and catchy titles** for the fetched articles.
 - Stores the **summarized content and title** in a collection in the relevant database hosted on **MongoDB Atlas Cloud**, ensuring seamless access to fresh articles.
 - When users visit the site, they **instantly see the latest articles** thanks to **server-side rendering with Jinja2 and Flask templating**, eliminating the need for manual publishing.
 
