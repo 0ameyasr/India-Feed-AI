@@ -1,0 +1,9 @@
+python-dotenv
+markdown2
+requests
+pytz
+pymongo
+flask
+langchain_google_genai
+google-generativeai
+apscheduler
