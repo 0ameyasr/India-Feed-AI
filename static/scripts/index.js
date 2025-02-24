@@ -219,7 +219,7 @@ $(document).ready(function () {
                         </div>
                     `);
         
-                    fetch('http://localhost:7000/processed-articles', {
+                    fetch('/processed-articles', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(data.articles)
