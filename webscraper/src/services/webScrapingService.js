@@ -6,36 +6,31 @@ class WebScrapingService {
         try {
             if (signal.aborted) throw new Error("AbortError");
 
-            browser = await puppeteer.connect({
-                browserWSEndpoint: `wss://chrome.browserless.io?token=${process.env.BROWSERLESS_API_KEY}`
-            });
-
+            browser = await puppeteer.launch({ headless: true });
             const page = await browser.newPage();
             await page.setDefaultNavigationTimeout(30000);
-            await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/91.0.4472.124 Safari/537.36');
-            
+
+            const userAgents = [
+                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36',
+                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
+            ];
+            await page.setUserAgent(userAgents[Math.floor(Math.random() * userAgents.length)]);
+
             const formattedTopic = encodeURIComponent(topic.toLowerCase().replace(/\s+/g, "-"));
             const searchUrl = `https://www.indiatoday.in/search/${formattedTopic}?ctype=story`;
-            
-            console.log('Fetching:', searchUrl);
-            await page.goto(searchUrl, { waitUntil: 'networkidle2', timeout: 30000 });
 
-            if (signal.aborted) throw new Error('AbortError');
+            console.log('Fetching:', searchUrl);
+            await page.goto(searchUrl, { waitUntil: 'load', timeout: 30000 });
+
+            await page.waitForSelector('.some-new-selector', { timeout: 10000 });
+
+            const html = await page.content();
+            console.log(html);
 
             const articleLinks = await page.evaluate(() => {
-                const container = document.querySelector('#more_content_container');
-                if (!container) return [];
-                
-                return Array.from(container.querySelectorAll('a.grid_card_link'))
+                return Array.from(document.querySelectorAll('.some-new-selector a'))
                     .map(a => a.href)
-                    .filter(link => (
-                        link && 
-                        link.startsWith('https://www.indiatoday.in') &&
-                        !link.includes('/visualstories/') && 
-                        !link.includes('/magazine/') && 
-                        !link.includes('podcasts.indiatoday') &&
-                        !link.includes('www.aajtak.in')
-                    ))
+                    .filter(link => link.startsWith('https://www.indiatoday.in'))
                     .slice(0, 5);
             });
 
@@ -44,16 +39,12 @@ class WebScrapingService {
                 throw new Error('No articles found for the given topic');
             }
 
-            const articles = await this.scrapeTopArticles(articleLinks, signal, browser);
-            return articles;
-
+            return articleLinks;
         } catch (error) {
             console.error('Scraping error:', error);
             throw error;
         } finally {
-            if (browser) {
-                await browser.disconnect();
-            }
+            if (browser) await browser.close();
         }
     }
 
