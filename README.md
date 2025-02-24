@@ -150,9 +150,15 @@ You're now ready to interact with **The Bharat Bulletin**! 🚀
      ```sh
      setx GOOGLE_GENAI_API_KEY "your_api_key"
      ```
-- **MongoDB URI Format**:
+- **MongoDB URI Format**:-
+  1. Ensure you have a **new cluster** or **existing database** ready for updates.  
+  2. In your selected cluster, create a database named **IndiaFeed**.  
+  3. Inside **IndiaFeed**, create two collections: **articles** and **trending_videos**.  
+  4. Copy the connection string and verify connectivity (check network security settings).  
   ```sh
   mongodb+srv://<username>:<password>@cluster0.mongodb.net/?retryWrites=true&w=majority
   ```
+  5. Additionally, store it in an environment variable **MONGO_URI** on your local (Windows) system.
+     
 - **Keeping Credentials Safe**: Storing API keys in environment variables prevents accidental exposure in source code. 
-- **NOTE**: We cannot leak the credentials we used because this is a public repository. We apologize for any inconvenience caused in this regard.
+- **NOTE**: We **cannot leak** the credentials we used because this is a **public** repository. **_We apologize for any inconvenience caused in this regard._**
