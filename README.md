@@ -1,3 +1,10 @@
+# 🚀 **The Bharat Bulletin is Live!** 🌍
+
+Exciting news! **The Bharat Bulletin** is now live and accessible online! You can check out the latest news and updates here:
+
+🔗 [Visit The Bharat Bulletin Now](https://the-bharat-bulletin.onrender.com/#)
+
+
 # India-Feed-AI
 
 Welcome to **India-Feed-AI**, the core engine behind our prototype, **The Bharat Bulletin**. This repository powers the website's logic, handling everything from news scraping to AI-driven summarization.
@@ -75,10 +82,9 @@ The `process_scheduler.py` script runs **indefinitely** once started and handles
 - Interacts with `cron_app.js` to **fetch web articles in raw JSON format**, leveraging `webScrapingService.js`.
 - Uses `summarizer.py` to **generate summaries and catchy titles** for the fetched articles.
 - Stores the **summarized content and title** in a collection in the relevant database hosted on **MongoDB Atlas Cloud**, ensuring seamless access to fresh articles.
-- All automation is powered by **BlockingScheduler from APScheduler**, ensuring reliable, scheduled execution.
 - When users visit the site, they **instantly see the latest articles** thanks to **server-side rendering with Jinja2 and Flask templating**, eliminating the need for manual publishing.
 
-## 🛠️ Testing & Setup
+## 🛠️ Local Testing & Setup
 To test and run this project locally, follow these steps:
 
 ### 1️⃣ Clone the Repository
