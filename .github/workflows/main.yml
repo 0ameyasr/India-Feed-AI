@@ -1,8 +1,8 @@
 name: AI Agent CRON Job
 
 on:
-  schedule:
-    - cron: "30 21,0,4,6,8,10,12,14,16,18 * * *"
+  # schedule:
+  #   - cron: "30 21,0,4,6,8,10,12,14,16,18 * * *"
   workflow_dispatch:  
 
 jobs:
