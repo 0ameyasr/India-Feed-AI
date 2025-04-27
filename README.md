@@ -1,8 +1,7 @@
-# 🚀 **The Bharat Bulletin is Live!** 🌍
+# 🚀 **The Bharat Bulletin** 🌍
 
-Exciting news! **The Bharat Bulletin** is now live and accessible online! You can check out the latest news and updates here:
+🔗 [Visit The Bharat Bulletin Now](https://the-bharat-bulletin.onrender.com/#) (Link is not active as of present)
 
-🔗 [Visit The Bharat Bulletin Now](https://the-bharat-bulletin.onrender.com/#)
 
 # Pagespeed performance
 ## On Mobile
